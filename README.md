@@ -1,3 +1,99 @@
+Bagian 2: Instruksi untuk Teman Anda Mengakses Proyek
+
+Teman Anda perlu melakukan langkah-langkah ini di komputer mereka setelah Anda mengunggah proyeknya ke GitHub.
+
+    Clone Repositori:
+        Buka terminal mereka.
+        Jalankan perintah berikut:
+        Bash
+
+    git clone https://github.com/USERNAME/infocraft-project.git
+
+        Ganti USERNAME dan infocraft-project dengan informasi repositori Anda.
+
+Masuk ke Folder Proyek:
+
+    Setelah clone selesai, masuk ke folder proyek:
+    Bash
+
+    cd infocraft-project
+
+Instal Dependensi PHP (Composer):
+
+    Laravel menggunakan Composer untuk mengelola dependensi PHP.
+    Jalankan:
+    Bash
+
+    composer install
+
+Konfigurasi File .env:
+
+    File .env berisi konfigurasi sensitif (seperti kredensial database dan app key) dan tidak diunggah ke Git karena .gitignore sudah mengaturnya. Teman Anda perlu membuat salinannya:
+    Bash
+
+    cp .env.example .env
+
+Buat App Key Laravel:
+
+    Setiap instalasi Laravel memerlukan app key unik.
+    Jalankan:
+    Bash
+
+    php artisan key:generate
+
+Konfigurasi Database Lokal:
+
+    Teman Anda perlu mengedit file .env yang baru dibuat.
+    Ubah bagian database agar sesuai dengan pengaturan XAMPP/Laragon mereka.
+
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=infocraft_db # Ganti dengan nama database yang mereka inginkan di local
+    DB_USERNAME=root         # Biasanya 'root' untuk XAMPP/Laragon
+    DB_PASSWORD=             # Biasanya kosong untuk XAMPP/Laragon
+
+    Mereka juga perlu membuat database baru di phpMyAdmin mereka (misalnya dengan nama infocraft_db) jika belum ada.
+
+Jalankan Migrasi Database:
+
+    Ini akan membuat semua tabel yang dibutuhkan aplikasi di database lokal teman Anda.
+    Jalankan:
+    Bash
+
+    php artisan migrate
+
+Instal Dependensi Frontend (NPM):
+
+    Jika aplikasi menggunakan aset JavaScript/CSS modern (Vite/Mix).
+    Jalankan:
+    Bash
+
+npm install
+
+Lalu, untuk mengompilasi aset frontend dalam mode pengembangan:
+Bash
+
+    npm run dev
+
+Buat Storage Link (Jika Menggunakan Upload File):
+
+    Jika aplikasi Anda mengizinkan upload file (seperti gambar postingan yang sudah kita atur), symlink ini penting agar file yang diupload dapat diakses dari browser.
+    Jalankan:
+    Bash
+
+    php artisan storage:link
+
+Jalankan Server Laravel:
+
+    Terakhir, teman Anda bisa menjalankan server pengembangan Laravel:
+    Bash
+
+php artisan serve
+
+Dan mengaksesnya di browser mereka di http://127.0.0.1:8000.
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
