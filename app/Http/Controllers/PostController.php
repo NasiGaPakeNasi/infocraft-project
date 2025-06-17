@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str; // Tambahkan ini jika belum ada
-use Illuminate\Support\Facades\Auth; // Tambahkan ini untuk akses user yang login
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -23,8 +24,6 @@ class PostController extends Controller
      */
     public function create()
     {
-        // Pastikan hanya user yang sudah login yang bisa mengakses halaman ini
-        // Anda bisa menambahkan middleware 'auth' di route atau di constructor controller
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Anda harus login untuk menambah postingan.');
         }
@@ -37,46 +36,103 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // Pastikan hanya user yang sudah login yang bisa menambah postingan
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Anda harus login untuk menambah postingan.');
         }
 
-        // 1. Validasi data yang masuk dari form
         $validatedData = $request->validate([
-            'title' => 'required|max:255|unique:posts', // Judul wajib, maks 255 karakter, harus unik
-            'content' => 'required', // Konten wajib
-            'image' => 'nullable|image|file|max:2048', // Gambar tidak wajib, harus file gambar, maks 2MB
+            'title' => 'required|max:255|unique:posts',
+            'content' => 'required',
+            'image' => 'nullable|image|file|max:2048',
         ]);
 
-        // 2. Buat slug otomatis dari judul
         $validatedData['slug'] = Str::slug($request->title);
 
-        // 3. Simpan gambar jika ada
         if ($request->hasFile('image')) {
-            // Simpan gambar ke folder 'public/post-images'
             $imagePath = $request->file('image')->store('post-images', 'public');
             $validatedData['image'] = $imagePath;
         }
 
-        // 4. Masukkan user_id dari user yang sedang login
         $validatedData['user_id'] = Auth::id();
 
-        // 5. Simpan postingan baru ke database
         Post::create($validatedData);
 
-        // 6. Redirect ke halaman daftar postingan dengan pesan sukses
         return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post) // Menggunakan Route Model Binding
+    public function show(Post $post)
     {
         return view('posts.show', compact('post'));
     }
 
-    // Method edit, update, destroy akan ditambahkan nanti
-    // ...
-}
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            return redirect()->route('posts.index')->with('error', 'Anda tidak diizinkan mengedit postingan ini.');
+        }
+
+        return view('posts.edit', compact('post'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            return redirect()->route('posts.index')->with('error', 'Anda tidak diizinkan mengupdate postingan ini.');
+        }
+
+        $rules = [
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'image' => 'nullable|image|file|max:2048',
+        ];
+
+        if ($request->title !== $post->title) {
+            $rules['title'] .= '|unique:posts';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        if ($request->title !== $post->title) {
+            $validatedData['slug'] = Str::slug($request->title);
+        }
+
+        if ($request->hasFile('image')) {
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+            $imagePath = $request->file('image')->store('post-images', 'public');
+            $validatedData['image'] = $imagePath;
+        }
+
+        $post->update($validatedData);
+
+        return redirect()->route('posts.show', $post->slug)->with('success', 'Postingan berhasil diperbarui!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            return redirect()->route('posts.index')->with('error', 'Anda tidak diizinkan menghapus postingan ini.');
+        }
+
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
+
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('success', 'Postingan berhasil dihapus!');
+    }
+} // <--- PASTIKAN INI ADALAH PENUTUP CLASS PostController
