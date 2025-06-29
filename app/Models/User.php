@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Relasi: Satu User punya banyak Comment
+public function comments()
+{
+    return $this->hasMany(Comment::class);
+}
 }

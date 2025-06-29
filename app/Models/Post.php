@@ -24,9 +24,12 @@ class Post extends Model
         return $this->belongsTo(User::class); // Post ini milik User
     }
 
-    // Definisikan relasi: Satu Post punya banyak Comment
-    public function comments()
-    {
-        return $this->hasMany(Comment::class); // Post ini punya banyak Comment
-    }
+
+    // Relasi: Satu Post punya banyak Comment
+    // // Ganti fungsi comments() yang lama dengan yang ini
+public function comments()
+{
+    // Ambil komentar yang merupakan komentar utama (bukan balasan)
+    return $this->hasMany(Comment::class)->whereNull('parent_id')->latest();
+}
 }

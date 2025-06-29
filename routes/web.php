@@ -3,6 +3,8 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CommentController; // Jangan lupa tambahkan ini di atas
+
 
 /*
 |--------------------------------------------------------------------------
@@ -44,12 +46,26 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/posts/{post:slug}', [PostController::class, 'update'])->name('posts.update');
 
     // Rute untuk menghapus postingan
-    Route::delete('/posts/{post:slug}', [PostController::class, 'destroy'])->name('posts.destroy'); // Tambahkan baris ini
+    Route::delete('/posts/{post:slug}', [PostController::class, 'destroy'])->name('posts.destroy'); 
+    // Tambahkan baris ini
+
+      // Route untuk menyimpan komentar
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+
+    // Route untuk mengupdate komentar
+    Route::patch('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update'); // <-- Tambahkan ini
+
+    // Route untuk menghapus komentar
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy'); // <-- Tambahkan ini
 });
 
 // ... kode selanjutnya ...
 
-
+// Route yang memerlukan login
+Route::middleware(['auth'])->group(function () {
+    // Route untuk menyimpan komentar
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+});
 
     
 });

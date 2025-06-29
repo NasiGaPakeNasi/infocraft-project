@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Proyek Pengembangan "InfoCraft"</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        h2 {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        p.summary {
+            background-color: #fdf9e7;
+            border-left: 5px solid #f1c40f;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Timeline Proyek Pengembangan "InfoCraft"</h1>
+
+    <h2>Fase 1: Inisiasi, Perencanaan, dan Fondasi Aplikasi</h2>
+    <p class="summary">
+        <strong>Tanggal Mulai:</strong> 13 Juni 2025 | 
+        <strong>Tanggal Selesai:</strong> 13 Juni 2025 | 
+        <strong>Durasi:</strong> 1 Hari
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama Tugas</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.1</td>
+                <td>Inisiasi & Analisis Kebutuhan</td>
+                <td>Mendefinisikan konsep "Infocraft", fitur utama (CRUD admin, registrasi, komentar).</td>
+            </tr>
+            <tr>
+                <td>1.2</td>
+                <td>Persiapan Lingkungan & Setup</td>
+                <td>Panduan instalasi XAMPP/Laragon, Composer, dan Node.js.</td>
+            </tr>
+            <tr>
+                <td>1.3</td>
+                <td>Pembuatan Proyek & Konfigurasi</td>
+                <td>Membuat proyek Laravel baru, mengonfigurasi file .env, dan koneksi database.</td>
+            </tr>
+            <tr>
+                <td>1.4</td>
+                <td>Fondasi Database & Autentikasi</td>
+                <td>Membuat migrasi tabel `posts`, Model `Post`, dan mengaktifkan sistem autentikasi bawaan.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Fase 2: Perancangan dan Penulisan Jurnal Ilmiah</h2>
+    <p class="summary">
+        <strong>Tanggal Mulai:</strong> 20 Juni 2025 | 
+        <strong>Tanggal Selesai:</strong> 20 Juni 2025 | 
+        <strong>Durasi:</strong> 1 Hari
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama Tugas</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2.1</td>
+                <td>Perumusan Judul & Metodologi</td>
+                <td>Menganalisis judul jurnal dan menegaskan pendekatan "Studi Kasus".</td>
+            </tr>
+            <tr>
+                <td>2.2</td>
+                <td>Penyusunan Draf Jurnal</td>
+                <td>Membuat kerangka dan draf lengkap untuk jurnal ilmiah.</td>
+            </tr>
+            <tr>
+                <td>2.3</td>
+                <td>Pemformatan Sesuai Template</td>
+                <td>Memformat ulang draf jurnal agar sesuai dengan template "Jurnal Tekno Kompak".</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Fase 3: Pengembangan Fitur Lanjutan (Sistem Komentar)</h2>
+    <p class="summary">
+        <strong>Tanggal Mulai:</strong> 29 Juni 2025 | 
+        <strong>Tanggal Selesai:</strong> 29 Juni 2025 | 
+        <strong>Durasi:</strong> 1 Hari
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama Tugas</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>3.1</td>
+                <td>Implementasi Komentar Dasar</td>
+                <td>Membuat migrasi, model, controller, dan view. Termasuk proses debugging error awal.</td>
+            </tr>
+            <tr>
+                <td>3.2</td>
+                <td>Implementasi Edit & Hapus Komentar</td>
+                <td>Menambahkan `CommentPolicy` untuk otorisasi, route, dan method `update` & `destroy`. Termasuk debugging file Policy.</td>
+            </tr>
+            <tr>
+                <td>3.3</td>
+                <td>Implementasi Balasan Komentar (Reply)</td>
+                <td>Memodifikasi database dengan `parent_id`, memperbarui relasi model, dan membuat view rekursif untuk komentar bertingkat.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

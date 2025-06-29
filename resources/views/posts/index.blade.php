@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
+        <div cl ass="container">
             <a class="navbar-brand" href="{{ route('posts.index') }}">Infocraft</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
