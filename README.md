@@ -23,14 +23,22 @@ Sebelum memulai, pastikan perangkat lunak berikut sudah ter-install di komputer 
 Ikuti semua langkah ini secara berurutan.
 
 ### 1. Clone Repositori
-Ini adalah langkah untuk mengunduh proyek dari GitHub ke komputer Anda.
+Ini adalah langkah untuk mengunduh proyek dari GitHub ke komputer Anda. Pilih **salah satu** cara yang paling nyaman bagi Anda.
 
-**Cara Termudah (Pakai GitHub Desktop):**
-   - Buka GitHub Desktop.
+**Cara 1: GitHub Desktop (Paling Mudah)**
+   - Buka aplikasi GitHub Desktop.
    - Klik `File` -> `Clone repository...`.
    - Pilih tab `URL`, masukkan `https://github.com/NasiGaPakeNasi/infocraft-project.git` dan klik `Clone`.
 
-**Cara Alternatif (Pakai Terminal/CMD):**
+**Cara 2: Langsung di VS Code (Terintegrasi)**
+   - Buka VS Code.
+   - Buka *Command Palette* dengan menekan `Ctrl+Shift+P` (atau `Cmd+Shift+P` di Mac).
+   - Ketik `Git: Clone` lalu tekan Enter.
+   - Tempelkan URL repositori: `https://github.com/NasiGaPakeNasi/infocraft-project.git` lalu tekan Enter.
+   - Pilih folder di komputer Anda untuk menyimpan proyek.
+   - Setelah selesai, VS Code akan bertanya apakah Anda ingin membuka proyek tersebut. Klik "Open".
+
+**Cara 3: Terminal / CMD (Tradisional)**
    ```bash
    git clone [https://github.com/NasiGaPakeNasi/infocraft-project.git](https://github.com/NasiGaPakeNasi/infocraft-project.git)
    ```
@@ -51,32 +59,7 @@ copy .env.example .env
 cp .env.example .env
 ```
 
-### 4. Generate Kunci Aplikasi 🔑
-Ini adalah langkah **KRUSIAL** untuk keamanan aplikasi. Jalankan perintah ini:
-```bash
-php artisan key:generate
-```
-Anda akan melihat pesan "Application key set successfully."
-
-### 5. Buat Database Baru
-- Jalankan **XAMPP** atau **Laragon** Anda. Pastikan Apache dan MySQL berjalan.
-- Buka `phpMyAdmin` (biasanya di `http://localhost/phpmyadmin`) atau HeidiSQL/DBeaver.
-- Buat sebuah database **kosong** baru. Beri nama yang mudah diingat, misalnya `infocraft_db`.
-
-### 6. Hubungkan Database ke Proyek
-- Buka file `.env` yang tadi kita buat di langkah 3.
-- Cari baris-baris berikut dan ubah sesuai dengan konfigurasi database Anda.
-
-```dotenv
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=infocraft_db  <-- Ganti dengan nama database yang Anda buat
-DB_USERNAME=root         <-- Biasanya 'root' untuk XAMPP/Laragon
-DB_PASSWORD=             <-- Kosongkan jika tidak ada password
-```
-
-### 7. Install Semua Dependensi
+### 4. Install Semua Dependensi
 Perintah ini akan mengunduh semua "perpustakaan" kode yang dibutuhkan oleh proyek.
 ```bash
 # Install dependensi PHP
@@ -86,18 +69,54 @@ composer install
 npm install
 ```
 
-### 8. Jalankan Migrasi Database 🏗️
-Perintah ini akan membuat semua tabel (seperti `users`, `posts`, `comments`) yang kita butuhkan di dalam database Anda.
+### 5. Generate Kunci Aplikasi 🔑
+Ini adalah langkah **KRUSIAL** untuk keamanan aplikasi. Jalankan perintah ini:
 ```bash
-php artisan migrate
+php artisan key:generate
+```
+Anda akan melihat pesan "Application key set successfully."
+
+### 6. Buat Database & Hubungkan ke Proyek
+- Jalankan **XAMPP** atau **Laragon** Anda. Pastikan Apache dan MySQL berjalan.
+- Buka `phpMyAdmin` (atau HeidiSQL/DBeaver). Buat sebuah database **kosong** baru. Beri nama **`infocraft_db`**.
+- Buka file `.env` yang tadi kita buat di langkah 3.
+- Pastikan bagian `DB_` sudah sesuai seperti ini:
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=infocraft_db
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
-### 9. Jalankan Server Pengembangan ✅
+### 7. Jalankan Migrasi & Seeder Database 🏗️
+Perintah ini akan membuat semua tabel di database Anda dan **mengisinya dengan data contoh** (akun admin, postingan, dan komentar) agar website tidak kosong.
+```bash
+php artisan migrate --seed
+```
+
+### 8. Buat Symlink untuk Penyimpanan Gambar
+Agar gambar yang di-upload bisa tampil di website, jalankan perintah ini:
+```bash
+php artisan storage:link
+```
+Anda akan melihat pesan "The [public/storage] directory has been linked."
+
+### 9. Jalankan Proyek! ✅
 Ini adalah langkah terakhir untuk menjalankan website di komputer Anda.
 ```bash
+# Compile aset frontend
+npm run dev
+
+# Jalankan server pengembangan
 php artisan serve
 ```
 Buka browser Anda dan kunjungi alamat **http://127.0.0.1:8000**. Jika semua langkah benar, Anda akan melihat halaman utama Infocraft.
+
+**Untuk Login Admin:**
+- **Email:** `admin@infocraft.com`
+- **Password:** `password`
 
 ---
 
@@ -105,18 +124,26 @@ Buka browser Anda dan kunjungi alamat **http://127.0.0.1:8000**. Jika semua lang
 
 Agar pekerjaan kita tidak tumpang tindih, ikuti alur ini **setiap saat**.
 
-### Sebelum Mulai Bekerja
-Selalu ambil versi terbaru dari kode yang ada di GitHub.
+**Catatan Penting:** Anda hanya bisa melakukan `Push` jika sudah diundang sebagai **Kolaborator** oleh pemilik repositori (`NasiGaPakeNasi`). Pastikan Anda sudah menerima undangan kolaborasi di email GitHub Anda dan sudah menyetujuinya.
+
+### Sebelum Mulai Bekerja (WAJIB)
+Selalu ambil versi terbaru dari kode yang ada di GitHub agar pekerjaan Anda tidak menimpa pekerjaan orang lain.
 - **Di GitHub Desktop:** Klik tombol **`Fetch origin`**, lalu klik **`Pull origin`**.
+- **Di VS Code:** Klik ikon *Source Control* (logo cabang), klik menu `...` di atas, lalu pilih `Pull`.
 - **Di Terminal:** `git pull origin main`
 
 ### Setelah Selesai Bekerja
-Kirim hasil pekerjaan Anda ke GitHub.
+Kirim hasil pekerjaan Anda ke GitHub agar bisa dilihat oleh tim.
 - **Di GitHub Desktop:**
   1. Buka aplikasi, Anda akan lihat daftar file yang Anda ubah.
   2. Tulis ringkasan perubahan di kolom "Summary" (misal: "Memperbaiki tampilan halaman login").
   3. Klik tombol biru **`Commit to main`**.
   4. Klik tombol **`Push origin`** yang muncul di atas.
+- **Di VS Code:**
+  1. Klik ikon *Source Control*.
+  2. Tulis pesan commit di kotak pesan di atas.
+  3. Klik tanda centang (✓) untuk melakukan *Commit*.
+  4. Klik tombol *Sync Changes* (logo awan dengan panah) di status bar bawah untuk melakukan *Pull* dan *Push*.
 - **Di Terminal:**
   ```bash
   git add .
