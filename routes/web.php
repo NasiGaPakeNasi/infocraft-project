@@ -65,9 +65,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     // Route untuk menyimpan komentar
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
-});
-
-    
+});    
 });
 
 // Rute untuk menampilkan detail postingan (bisa diakses siapa saja)

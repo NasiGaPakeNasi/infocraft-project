@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Models\Comment; // <-- Tambahkan ini
 use App\Policies\CommentPolicy; // <-- Tambahkan ini
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\Post; // <-- Tambahkan ini
+use App\Policies\PostPolicy; // <-- Tambahkan ini
+use Illuminate\Pagination\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -21,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+      Paginator::useBootstrapFive(); // <-- TAMBAHKAN BARIS INI
     }
 }
 
