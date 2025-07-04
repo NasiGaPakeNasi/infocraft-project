@@ -1,157 +1,152 @@
-Bagian 2: Instruksi untuk Teman Anda Mengakses Proyek
+# Proyek Infocraft 🚀
 
-Teman Anda perlu melakukan langkah-langkah ini di komputer mereka setelah Anda mengunggah proyeknya ke GitHub.
+Selamat datang di repositori proyek Infocraft! Dokumen ini adalah panduan lengkap untuk melakukan instalasi proyek ini di komputer lokal Anda dari awal hingga akhir. Ikuti langkah-langkah di bawah ini dengan teliti.
 
-    Clone Repositori:
-        Buka terminal mereka.
-        Jalankan perintah berikut:
-        Bash
+## ⚠️ Prasyarat (Wajib Di-install Dahulu)
 
-    git clone https://github.com/USERNAME/infocraft-project.git
+Sebelum memulai, pastikan perangkat lunak berikut sudah ter-install di komputer Anda. Jika belum, silakan unduh dan install dari link di bawah ini.
 
-        Ganti USERNAME dan infocraft-project dengan informasi repositori Anda.
+1.  **XAMPP** atau **Laragon**: Untuk membuat server lokal dan database MySQL.
+    * [Unduh XAMPP](https://www.apachefriends.org/download.html)
+    * [Unduh Laragon](https://laragon.org/download/) (Sangat direkomendasikan untuk kemudahan)
+2.  **Composer**: Untuk mengelola paket-paket dependensi PHP.
+    * [Unduh Composer](https://getcomposer.org/download/)
+3.  **Node.js**: Untuk mengelola aset frontend (CSS & JavaScript).
+    * [Unduh Node.js (versi LTS)](https://nodejs.org/en/download/)
+4.  **GitHub Desktop**: Untuk mempermudah proses `clone`, `pull`, dan `push` tanpa perlu terminal.
+    * [Unduh GitHub Desktop](https://desktop.github.com/)
 
-Masuk ke Folder Proyek:
+---
 
-    Setelah clone selesai, masuk ke folder proyek:
-    Bash
+## ⚙️ Langkah-Langkah Instalasi
 
-    cd infocraft-project
+Ikuti semua langkah ini secara berurutan.
 
-Instal Dependensi PHP (Composer):
+### 1. Clone Repositori
+Ini adalah langkah untuk mengunduh proyek dari GitHub ke komputer Anda. Pilih **salah satu** cara yang paling nyaman bagi Anda.
 
-    Laravel menggunakan Composer untuk mengelola dependensi PHP.
-    Jalankan:
-    Bash
+**Cara 1: GitHub Desktop (Paling Mudah)**
+   - Buka aplikasi GitHub Desktop.
+   - Klik `File` -> `Clone repository...`.
+   - Pilih tab `URL`, masukkan `https://github.com/NasiGaPakeNasi/infocraft-project.git` dan klik `Clone`.
 
-    composer install
+**Cara 2: Langsung di VS Code (Terintegrasi)**
+   - Buka VS Code.
+   - Buka *Command Palette* dengan menekan `Ctrl+Shift+P` (atau `Cmd+Shift+P` di Mac).
+   - Ketik `Git: Clone` lalu tekan Enter.
+   - Tempelkan URL repositori: `https://github.com/NasiGaPakeNasi/infocraft-project.git` lalu tekan Enter.
+   - Pilih folder di komputer Anda untuk menyimpan proyek.
+   - Setelah selesai, VS Code akan bertanya apakah Anda ingin membuka proyek tersebut. Klik "Open".
 
-Konfigurasi File .env:
+**Cara 3: Terminal / CMD (Tradisional)**
+   ```bash
+   git clone [https://github.com/NasiGaPakeNasi/infocraft-project.git](https://github.com/NasiGaPakeNasi/infocraft-project.git)
+   ```
 
-    File .env berisi konfigurasi sensitif (seperti kredensial database dan app key) dan tidak diunggah ke Git karena .gitignore sudah mengaturnya. Teman Anda perlu membuat salinannya:
-    Bash
+### 2. Masuk ke Folder Proyek
+Buka terminal atau CMD Anda, lalu masuk ke direktori proyek yang baru saja di-clone.
+```bash
+cd infocraft-project
+```
 
-    cp .env.example .env
+### 3. Konfigurasi File Environment (`.env`)
+File ini berisi semua konfigurasi rahasia seperti koneksi database.
+```bash
+# Untuk pengguna Windows
+copy .env.example .env
 
-Buat App Key Laravel:
+# Untuk pengguna Mac/Linux
+cp .env.example .env
+```
 
-    Setiap instalasi Laravel memerlukan app key unik.
-    Jalankan:
-    Bash
+### 4. Install Semua Dependensi
+Perintah ini akan mengunduh semua "perpustakaan" kode yang dibutuhkan oleh proyek.
+```bash
+# Install dependensi PHP
+composer install
 
-    php artisan key:generate
-
-Konfigurasi Database Lokal:
-
-    Teman Anda perlu mengedit file .env yang baru dibuat.
-    Ubah bagian database agar sesuai dengan pengaturan XAMPP/Laragon mereka.
-
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=infocraft_db # Ganti dengan nama database yang mereka inginkan di local
-    DB_USERNAME=root         # Biasanya 'root' untuk XAMPP/Laragon
-    DB_PASSWORD=             # Biasanya kosong untuk XAMPP/Laragon
-
-    Mereka juga perlu membuat database baru di phpMyAdmin mereka (misalnya dengan nama infocraft_db) jika belum ada.
-
-Jalankan Migrasi Database:
-
-    Ini akan membuat semua tabel yang dibutuhkan aplikasi di database lokal teman Anda.
-    Jalankan:
-    Bash
-
-    php artisan migrate
-
-Instal Dependensi Frontend (NPM):
-
-    Jika aplikasi menggunakan aset JavaScript/CSS modern (Vite/Mix).
-    Jalankan:
-    Bash
-
+# Install dependensi JavaScript
 npm install
+```
 
-Lalu, untuk mengompilasi aset frontend dalam mode pengembangan:
-Bash
+### 5. Generate Kunci Aplikasi 🔑
+Ini adalah langkah **KRUSIAL** untuk keamanan aplikasi. Jalankan perintah ini:
+```bash
+php artisan key:generate
+```
+Anda akan melihat pesan "Application key set successfully."
 
-    npm run dev
+### 6. Buat Database & Hubungkan ke Proyek
+- Jalankan **XAMPP** atau **Laragon** Anda. Pastikan Apache dan MySQL berjalan.
+- Buka `phpMyAdmin` (atau HeidiSQL/DBeaver). Buat sebuah database **kosong** baru. Beri nama **`infocraft_db`**.
+- Buka file `.env` yang tadi kita buat di langkah 3.
+- Pastikan bagian `DB_` sudah sesuai seperti ini:
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=infocraft_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Buat Storage Link (Jika Menggunakan Upload File):
+### 7. Jalankan Migrasi & Seeder Database 🏗️
+Perintah ini akan membuat semua tabel di database Anda dan **mengisinya dengan data contoh** (akun admin, postingan, dan komentar) agar website tidak kosong.
+```bash
+php artisan migrate --seed
+```
 
-    Jika aplikasi Anda mengizinkan upload file (seperti gambar postingan yang sudah kita atur), symlink ini penting agar file yang diupload dapat diakses dari browser.
-    Jalankan:
-    Bash
+### 8. Buat Symlink untuk Penyimpanan Gambar
+Agar gambar yang di-upload bisa tampil di website, jalankan perintah ini:
+```bash
+php artisan storage:link
+```
+Anda akan melihat pesan "The [public/storage] directory has been linked."
 
-    php artisan storage:link
+### 9. Jalankan Proyek! ✅
+Ini adalah langkah terakhir untuk menjalankan website di komputer Anda.
+```bash
+# Compile aset frontend
+npm run dev
 
-Jalankan Server Laravel:
-
-    Terakhir, teman Anda bisa menjalankan server pengembangan Laravel:
-    Bash
-
+# Jalankan server pengembangan
 php artisan serve
+```
+Buka browser Anda dan kunjungi alamat **http://127.0.0.1:8000**. Jika semua langkah benar, Anda akan melihat halaman utama Infocraft.
 
-Dan mengaksesnya di browser mereka di http://127.0.0.1:8000.
+**Untuk Login Admin:**
+- **Email:** `admin@infocraft.com`
+- **Password:** `password`
 
+---
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## 🤝 Alur Kerja Kolaborasi (Sangat Penting!)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Agar pekerjaan kita tidak tumpang tindih, ikuti alur ini **setiap saat**.
 
-## About Laravel
+**Catatan Penting:** Anda hanya bisa melakukan `Push` jika sudah diundang sebagai **Kolaborator** oleh pemilik repositori (`NasiGaPakeNasi`). Pastikan Anda sudah menerima undangan kolaborasi di email GitHub Anda dan sudah menyetujuinya.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Sebelum Mulai Bekerja (WAJIB)
+Selalu ambil versi terbaru dari kode yang ada di GitHub agar pekerjaan Anda tidak menimpa pekerjaan orang lain.
+- **Di GitHub Desktop:** Klik tombol **`Fetch origin`**, lalu klik **`Pull origin`**.
+- **Di VS Code:** Klik ikon *Source Control* (logo cabang), klik menu `...` di atas, lalu pilih `Pull`.
+- **Di Terminal:** `git pull origin main`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Setelah Selesai Bekerja
+Kirim hasil pekerjaan Anda ke GitHub agar bisa dilihat oleh tim.
+- **Di GitHub Desktop:**
+  1. Buka aplikasi, Anda akan lihat daftar file yang Anda ubah.
+  2. Tulis ringkasan perubahan di kolom "Summary" (misal: "Memperbaiki tampilan halaman login").
+  3. Klik tombol biru **`Commit to main`**.
+  4. Klik tombol **`Push origin`** yang muncul di atas.
+- **Di VS Code:**
+  1. Klik ikon *Source Control*.
+  2. Tulis pesan commit di kotak pesan di atas.
+  3. Klik tanda centang (✓) untuk melakukan *Commit*.
+  4. Klik tombol *Sync Changes* (logo awan dengan panah) di status bar bawah untuk melakukan *Pull* dan *Push*.
+- **Di Terminal:**
+  ```bash
+  git add .
+  git commit -m "Tulis pesan perubahan Anda di sini"
+  git push origin main
+  ```
