@@ -1,4 +1,3 @@
-// Buka file: database/seeders/DatabaseSeeder.php
 <?php
 
 namespace Database\Seeders;
@@ -11,6 +10,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            CategorySeeder::class, // <-- TAMBAHKAN INI DI ATAS
             UserSeeder::class,
             PostSeeder::class,
             CommentSeeder::class,

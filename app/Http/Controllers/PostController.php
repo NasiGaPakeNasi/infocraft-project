@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Category; // <-- Tambahkan ini
+
 
 class PostController extends Controller
 {
@@ -19,17 +21,12 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Anda harus login untuk menambah postingan.');
-        }
-
-        return view('posts.create');
-    }
+public function create()
+{
+    return view('posts.create', [
+        'categories' => Category::all()
+    ]);
+}
 
     /**
      * Store a newly created resource in storage.
@@ -40,11 +37,12 @@ class PostController extends Controller
             return redirect()->route('login')->with('error', 'Anda harus login untuk menambah postingan.');
         }
 
-        $validatedData = $request->validate([
-            'title' => 'required|max:255|unique:posts',
-            'content' => 'required',
-            'image' => 'nullable|image|file|max:2048',
-        ]);
+    $validatedData = $request->validate([
+        'title' => 'required|max:255|unique:posts',
+        'content' => 'required',
+        'image' => 'nullable|image|file|max:2048',
+        'categories' => 'nullable|array' // <-- Validasi baru
+    ]);
 
         $validatedData['slug'] = Str::slug($request->title);
 
@@ -55,9 +53,13 @@ class PostController extends Controller
 
         $validatedData['user_id'] = Auth::id();
 
-        Post::create($validatedData);
+         $post = Post::create($validatedData);
+             // Simpan relasi kategori
+    if ($request->has('categories')) {
+        $post->categories()->sync($request->categories);
+    }
 
-        return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan!');
+         return redirect()->route('posts.index')->with('success', 'Postingan baru berhasil ditambahkan!');
     }
 
     /**
@@ -71,14 +73,23 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
-    {
-        if (Auth::id() !== $post->user_id) {
-            return redirect()->route('posts.index')->with('error', 'Anda tidak diizinkan mengedit postingan ini.');
-        }
+    // public function edit(Post $post)
+    // {
+    //     if (Auth::id() !== $post->user_id) {
+    //         return redirect()->route('posts.index')->with('error', 'Anda tidak diizinkan mengedit postingan ini.');
+    //     }
 
-        return view('posts.edit', compact('post'));
-    }
+    //     return view('posts.edit', compact('post'));
+    // }
+
+public function edit(Post $post)
+{
+    $this->authorize('update', $post);
+    return view('posts.edit', [
+        'post' => $post,
+        'categories' => Category::all()
+    ]);
+}
 
     /**
      * Update the specified resource in storage.
@@ -94,6 +105,9 @@ class PostController extends Controller
             'content' => 'required',
             'image' => 'nullable|image|file|max:2048',
         ];
+
+        $rules['categories'] = 'nullable|array';
+        $validatedData = $request->validate($rules);
 
         if ($request->title !== $post->title) {
             $rules['title'] .= '|unique:posts';
@@ -114,6 +128,9 @@ class PostController extends Controller
         }
 
         $post->update($validatedData);
+
+          // Update relasi kategori
+    $post->categories()->sync($request->categories ?? []);
 
         return redirect()->route('posts.show', $post->slug)->with('success', 'Postingan berhasil diperbarui!');
     }

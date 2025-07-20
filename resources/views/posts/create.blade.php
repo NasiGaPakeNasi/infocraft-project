@@ -95,6 +95,20 @@ Logout
                 @enderror
             </div>
 
+<div class="mb-3">
+    <label class="form-label fw-bold">Kategori</label>
+    <div>
+        @forelse ($categories as $category)
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}">
+                <label class="form-check-label" for="category-{{ $category->id }}">{{ $category->name }}</label>
+            </div>
+        @empty
+            <p class="text-muted">Belum ada kategori. Silakan buat terlebih dahulu.</p>
+        @endforelse
+    </div>
+</div>
+
             <button type="submit" class="btn btn-primary">Submit Postingan</button>
             <a href="{{ route('posts.index') }}" class="btn btn-secondary">Kembali</a>
         </form>
@@ -105,7 +119,6 @@ Logout
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
-```
 {{-- * **Penjelasan Kode:**
     * `@csrf`: Ini adalah direktif Blade yang sangat penting untuk keamanan form Laravel. Jangan pernah menghapusnya.
     * `method="POST" action="{{ route('posts.store') }}"`: Mengatur form untuk mengirim data ke rute `posts.store`.

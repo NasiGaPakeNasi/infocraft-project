@@ -32,4 +32,10 @@ public function comments()
     // Ambil komentar yang merupakan komentar utama (bukan balasan)
     return $this->hasMany(Comment::class)->whereNull('parent_id')->latest();
 }
+
+public function categories()
+{
+    return $this->belongsToMany(Category::class);
+}
+
 }

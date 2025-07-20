@@ -91,6 +91,8 @@ Logout
                 @enderror
             </div>
 
+    
+
             <div class="mb-3">
                 <label for="content" class="form-label">Isi Postingan</label>
                 <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="10" required>{{ old('content', $post->content) }}</textarea>
@@ -100,6 +102,18 @@ Logout
                     </div>
                 @enderror
             </div>
+
+            <div class="mb-3">
+    <label class="form-label">Kategori</label>
+    <div>
+        @foreach ($categories as $category)
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category-{{ $category->id }}">
+                <label class="form-check-label" for="category-{{ $category->id }}">{{ $category->name }}</label>
+            </div>
+        @endforeach
+    </div>
+</div>
 
             <button type="submit" class="btn btn-success">Update Postingan</button>
             <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-secondary">Batal</a>

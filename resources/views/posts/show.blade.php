@@ -58,6 +58,12 @@
             Diposting oleh: {{ $post->user->name }} pada {{ $post->created_at->format('d M Y') }}
         </p>
 
+<div class="mb-3">
+    @foreach($post->categories as $category)
+        <span class="badge bg-secondary">{{ $category->name }}</span>
+    @endforeach
+</div>
+
         @if($post->image)
             <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid rounded mb-4" alt="{{ $post->title }}">
         @endif
@@ -114,6 +120,8 @@
         </div>
 
     </div>
+
+    
 
     {{-- 4. BAGIAN SCRIPT --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
