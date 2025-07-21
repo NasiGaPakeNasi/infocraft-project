@@ -32,8 +32,8 @@
                             <div class="col-md-{{ $post->image ? '8' : '12' }}">
                                 <h3>{{ $post->title }}</h3>
                                 <p class="text-muted small">
-                                    Oleh: {{ $post->user->name }} | {{ $post->created_at->diffForHumans() }}
-                                </p>
+    Oleh: {{ $post->user->name }} | {{ $post->created_at->diffForHumans() }} | 👁️ {{ $post->views_count }}
+</p>
                                 <p>{{ Str::limit($post->content, 150) }}</p>
                                 <div>
                                     <a href="{{ route('posts.show', $post) }}" class="btn btn-primary btn-sm">Baca Selengkapnya</a>

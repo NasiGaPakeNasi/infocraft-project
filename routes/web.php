@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DashboardController; // <-- Tambahkan ini di atas
 use App\Http\Controllers\Admin\PostController as AdminPostController; // <-- Tambahkan ini di atas
 use App\Http\Controllers\Admin\CommentController as AdminCommentController; // <-- Tambahkan ini di atas
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController; // <-- Tambahkan ini di atas
+use App\Http\Controllers\PostLikeController; // <-- Jangan lupa tambahkan ini di atas
 
 
 /*
@@ -115,4 +116,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // ... route admin lainnya
     Route::resource('/categories', AdminCategoryController::class)->except(['show']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    // ... (route-route Anda yang lain)
+
+    // Route untuk Like & Unlike Postingan
+    Route::post('/posts/{post}/like', [PostLikeController::class, 'like'])->name('posts.like');
+    Route::delete('/posts/{post}/unlike', [PostLikeController::class, 'unlike'])->name('posts.unlike');
 });

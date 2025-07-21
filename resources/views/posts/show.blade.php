@@ -54,9 +54,31 @@
         <a href="{{ route('posts.index') }}" class="btn btn-secondary btn-sm mb-3">Kembali ke Daftar Postingan</a>
 
         <h1>{{ $post->title }}</h1>
-        <p class="text-muted">
-            Diposting oleh: {{ $post->user->name }} pada {{ $post->created_at->format('d M Y') }}
-        </p>
+<p class="text-muted">
+    Oleh: {{ $post->user->name }} | {{ $post->created_at->format('d M Y') }} | 👁️ Dilihat {{ $post->views_count }} kali
+</p>
+
+<div class="mt-2 mb-4">
+    {{-- Tampilkan jumlah like --}}
+    <span>❤️ {{ $post->likes->count() }} Suka</span>
+
+    @auth
+        {{-- Jika user SUDAH me-like, tampilkan tombol Unlike --}}
+        @if ($post->likes->contains(auth()->user()->id))
+            <form action="{{ route('posts.unlike', $post) }}" method="POST" class="d-inline ms-2">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm">Batal Suka</button>
+            </form>
+        {{-- Jika user BELUM me-like, tampilkan tombol Like --}}
+        @else
+            <form action="{{ route('posts.like', $post) }}" method="POST" class="d-inline ms-2">
+                @csrf
+                <button type="submit" class="btn btn-primary btn-sm">Suka</button>
+            </form>
+        @endif
+    @endauth
+</div>
 
 <div class="mb-3">
     @foreach($post->categories as $category)

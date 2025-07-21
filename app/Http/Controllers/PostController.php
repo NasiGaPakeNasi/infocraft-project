@@ -88,10 +88,16 @@ public function create()
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
-    {
-        return view('posts.show', compact('post'));
-    }
+ /**
+ * Menampilkan detail satu postingan.
+ */
+public function show(Post $post)
+{
+    // Tambahkan +1 ke views_count setiap kali halaman ini dibuka
+    $post->increment('views_count');
+
+    return view('posts.show', compact('post'));
+}
 
     /**
      * Show the form for editing the specified resource.

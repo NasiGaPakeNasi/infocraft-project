@@ -38,4 +38,11 @@ public function categories()
     return $this->belongsToMany(Category::class);
 }
 
+// app/Models/Post.php
+
+public function likes()
+{
+    return $this->belongsToMany(User::class, 'post_user');
+}
+
 }
