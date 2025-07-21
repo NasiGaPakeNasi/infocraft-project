@@ -17,11 +17,14 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+protected $fillable = [
+    'name',
+    'email',
+    'password',
+    'role', // <-- Tambahkan ini
+];
+
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,5 +53,10 @@ class User extends Authenticatable
 public function comments()
 {
     return $this->hasMany(Comment::class);
+}
+
+public function isAdmin(): bool
+{
+    return $this->role === 'admin';
 }
 }

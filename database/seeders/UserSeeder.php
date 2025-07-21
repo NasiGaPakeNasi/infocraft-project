@@ -1,4 +1,3 @@
-// Buka file: database/seeders/UserSeeder.php
 <?php
 
 namespace Database\Seeders;
@@ -16,7 +15,8 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Admin Infocraft',
             'email' => 'admin@infocraft.com',
-            'password' => Hash::make('password'), // passwordnya: password
+            'password' => Hash::make('password'),
+            'role' => 'admin',
         ]);
 
         // Buat Akun User Biasa
@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             'name' => 'User Biasa',
             'email' => 'user@infocraft.com',
             'password' => Hash::make('password'),
+            'role' => 'user',
         ]);
     }
 }

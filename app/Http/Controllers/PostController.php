@@ -21,6 +21,29 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
+    public function search(Request $request)
+{
+    // 1. Validasi input pencarian
+    $request->validate([
+        'query' => 'required|min:3',
+    ]);
+
+    // 2. Ambil kata kunci dari input
+    $query = $request->input('query');
+
+    // 3. Lakukan pencarian di database
+    $posts = Post::where('title', 'like', "%{$query}%")
+                 ->orWhere('content', 'like', "%{$query}%")
+                 ->latest()
+                 ->paginate(5);
+
+    // 4. Kirim hasil ke view
+    return view('search.results', [
+        'posts' => $posts,
+        'query' => $query,
+    ]);
+}
+
 public function create()
 {
     return view('posts.create', [
