@@ -32,7 +32,7 @@
                             <div class="col-md-{{ $post->image ? '8' : '12' }}">
                                 <h3>{{ $post->title }}</h3>
                                 <p class="text-muted small">
-    Oleh: {{ $post->user->name }} | {{ $post->created_at->diffForHumans() }} | 👁️ {{ $post->views_count }}
+    Oleh: <a href="{{ route('profile.show', $post->user) }}">{{ $post->user->name }}</a> | {{ $post->created_at->diffForHumans() }} | 👁️ {{ $post->views_count }}
 </p>
                                 <p>{{ Str::limit($post->content, 150) }}</p>
                                 <div>

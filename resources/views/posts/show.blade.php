@@ -55,7 +55,7 @@
 
         <h1>{{ $post->title }}</h1>
 <p class="text-muted">
-    Oleh: {{ $post->user->name }} | {{ $post->created_at->format('d M Y') }} | 👁️ Dilihat {{ $post->views_count }} kali
+   Oleh: <a href="{{ route('profile.show', $post->user) }}">{{ $post->user->name }}</a> | {{ $post->created_at->format('d M Y') }} | 👁️ Dilihat {{ $post->views_count }} kali
 </p>
 
 <div class="mt-2 mb-4">

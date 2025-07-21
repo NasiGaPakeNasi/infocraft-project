@@ -67,4 +67,9 @@ public function likedPosts()
     return $this->belongsToMany(Post::class, 'post_user');
 }
 
+public function posts()
+{
+    return $this->hasMany(Post::class);
+}
+
 }

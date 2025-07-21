@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PostController as AdminPostController; // <-- Tam
 use App\Http\Controllers\Admin\CommentController as AdminCommentController; // <-- Tambahkan ini di atas
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController; // <-- Tambahkan ini di atas
 use App\Http\Controllers\PostLikeController; // <-- Jangan lupa tambahkan ini di atas
+use App\Http\Controllers\UserProfileController; // <-- Jangan lupa tambahkan ini di atas
 
 
 /*
@@ -125,3 +126,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts/{post}/like', [PostLikeController::class, 'like'])->name('posts.like');
     Route::delete('/posts/{post}/unlike', [PostLikeController::class, 'unlike'])->name('posts.unlike');
 });
+
+// Route untuk menampilkan halaman profil pengguna
+Route::get('/profile/{user:name}', [UserProfileController::class, 'show'])->name('profile.show');

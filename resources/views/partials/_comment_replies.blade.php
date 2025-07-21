@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <div>
-                    <strong>{{ $comment->user->name }}</strong>
+                    <strong><a href="{{ route('profile.show', $comment->user) }}">{{ $comment->user->name }}</a></strong>
                     <small class="text-muted ms-2">{{ $comment->created_at->diffForHumans() }}</small>
                 </div>
                 <div>
