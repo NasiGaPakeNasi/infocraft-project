@@ -6,35 +6,33 @@ Semua perubahan penting pada proyek ini akan didokumentasikan di file ini.
 
 ## [1.0.0] - 2025-07-29
 
+Versi rilis stabil pertama yang mencakup semua fungsionalitas inti untuk portal berita dan komunitas.
+
 ### Ditambahkan (Added)
-- **Sistem Postingan:** Fungsionalitas CRUD (Create, Read, Update, Delete) penuh untuk postingan.
-- **Sistem Komentar:** Pengguna dapat membuat, mengedit, menghapus, dan membalas komentar.
-- **Sistem Kategori:** Postingan dapat dikelompokkan ke dalam beberapa kategori.
-- **Fitur Pencarian:** Menambahkan search bar untuk mencari postingan berdasarkan judul atau konten.
-- **Panel Admin Lengkap:**
+- **Sistem Postingan (13 Juni 2025):** Fungsionalitas CRUD (Create, Read, Update, Delete) penuh untuk postingan.
+- **Sistem Komentar (29 Juni 2025):** Pengguna dapat membuat, mengedit, menghapus, dan membalas komentar.
+- **Sistem Kategori (21 Juli 2025):** Postingan dapat dikelompokkan ke dalam beberapa kategori.
+- **Fitur Pencarian (21 Juli 2025):** Menambahkan search bar untuk mencari postingan.
+- **Panel Admin Lengkap (21 Juli 2025):**
     - Sistem Peran (Role) untuk membedakan Admin dan User.
     - Dashboard admin yang dilindungi Middleware.
-    - Manajemen Pengguna (melihat daftar semua user).
-    - Manajemen Postingan (melihat dan menghapus semua postingan).
-    - Manajemen Komentar (melihat dan menghapus semua komentar).
-    - Manajemen Kategori (CRUD lengkap untuk kategori).
-- **Fitur Interaksi Pengguna:**
+    - Manajemen Pengguna, Postingan, Komentar, dan Kategori.
+- **Fitur Interaksi Pengguna (21 Juli 2025):**
     - Sistem Suka (Like) untuk postingan.
     - Penghitung Jumlah Pembaca (Views Counter) untuk setiap postingan.
-- **Halaman Profil Pengguna:**
-    - Halaman profil publik untuk setiap pengguna.
-    - Menampilkan daftar postingan yang dibuat, komentar yang ditulis, dan postingan yang disukai.
-- **Struktur & Tampilan:**
-    - Implementasi Master Layout dengan Blade untuk tampilan yang konsisten.
+- **Halaman Profil Pengguna (21 Juli 2025):**
+    - Halaman profil publik yang menampilkan postingan, komentar, dan postingan yang disukai.
+- **Struktur & Tampilan (29 Juli 2025):**
+    - Implementasi Master Layout dengan Blade.
     - Menambahkan Footer dengan nomor versi proyek.
-- **Persiapan Kolaborasi:**
-    - Membuat Database Seeder untuk data contoh (user, post, comment, category).
-    - Membuat dokumentasi `README.md` yang detail untuk instalasi dan alur kerja tim.
+- **Persiapan Kolaborasi (21 Juli 2025):**
+    - Membuat Database Seeder untuk data contoh.
+    - Membuat dokumentasi `README.md` yang detail.
 
 ### Diubah (Changed)
-- Navbar utama sekarang dinamis dan menampilkan daftar kategori dari database.
-- Navbar sekarang bersifat *sticky* (menempel di atas saat di-scroll).
-- Memperbaiki gaya pagination agar menggunakan style Bootstrap 5.
+- **(21 Juli 2025)** Navbar utama sekarang dinamis dan menampilkan daftar kategori.
+- **(29 Juli 2025)** Navbar sekarang bersifat *sticky* dan footer bersifat *fixed*.
+- **(21 Juli 2025)** Memperbaiki gaya pagination agar menggunakan style Bootstrap 5.
 
 ### Diperbaiki (Fixed)
 - Memperbaiki berbagai bug terkait relasi model, *namespace*, dan kesalahan sintaks selama pengembangan.
