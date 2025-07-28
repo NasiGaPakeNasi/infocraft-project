@@ -12,7 +12,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js']) 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('posts.index') }}">Infocraft</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,5 +89,18 @@
     </main>
     
     @yield('scripts')
+
+{{-- Tambahkan ini sebelum </body> --}}
+
+<footer class="mt-5 py-4 bg-light text-center text-muted fixed-bottom">
+    <div class="container">
+        <p class="mb-0">Infocraft &copy; 2025 | Versi 1.0.0</p>
+    </div>
+</footer>
+
+@yield('scripts')
+
 </body>
+
+
 </html>
