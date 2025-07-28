@@ -10,7 +10,7 @@ use App\Policies\PostPolicy; // <-- Tambahkan ini
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View; // <-- TAMBAHKAN INI
 use App\Models\Category;             // <-- TAMBAHKAN INI
-
+use Illuminate\Support\Facades\Gate;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -34,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
     // Ganti nama variabel agar tidak konflik
     $view->with('global_categories', Category::all()); 
+
+        // Definisikan Gate untuk 'is_admin'
+    Gate::define('is_admin', function ($user) {
+        return $user->isAdmin(); // Memanggil method isAdmin() dari model User
+    });
 });
     }
 }

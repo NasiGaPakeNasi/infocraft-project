@@ -10,11 +10,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Hapus atau beri komentar pada baris ini
-     * protected $redirectTo = '/home';
-     */
-
-    /**
      * Method baru untuk mengarahkan pengguna setelah login.
      */
     public function redirectTo()
