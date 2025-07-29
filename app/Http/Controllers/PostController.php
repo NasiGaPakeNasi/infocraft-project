@@ -70,8 +70,12 @@ public function create()
         $validatedData['slug'] = Str::slug($request->title);
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('post-images', 'public');
-            $validatedData['image'] = $imagePath;
+                $file = $request->file('image');
+    // Membuat nama file baru yang unik dan mengubah ekstensinya menjadi huruf kecil
+    $filename = uniqid() . '.' . strtolower($file->getClientOriginalExtension());
+    // Menyimpan file dengan nama baru yang sudah pasti huruf kecil
+    $imagePath = $file->storeAs('post-images', $filename, 'public');
+    $validatedData['image'] = $imagePath;
         }
 
         $validatedData['user_id'] = Auth::id();
@@ -149,11 +153,12 @@ public function edit(Post $post)
         }
 
         if ($request->hasFile('image')) {
-            if ($post->image) {
-                Storage::disk('public')->delete($post->image);
-            }
-            $imagePath = $request->file('image')->store('post-images', 'public');
-            $validatedData['image'] = $imagePath;
+         $file = $request->file('image');
+    // Membuat nama file baru yang unik dan mengubah ekstensinya menjadi huruf kecil
+    $filename = uniqid() . '.' . strtolower($file->getClientOriginalExtension());
+    // Menyimpan file dengan nama baru yang sudah pasti huruf kecil
+    $imagePath = $file->storeAs('post-images', $filename, 'public');
+    $validatedData['image'] = $imagePath;
         }
 
         $post->update($validatedData);

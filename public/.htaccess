@@ -1,7 +1,14 @@
+
 <IfModule mod_rewrite.c>
+
     <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
+    Options +SymLinksIfOwnerMatch
+    Options -MultiViews -Indexes
     </IfModule>
+    
+    # Mengatasi error Vite manifest not found
+    RewriteRule ^build/manifest\.json$ - [L]
+
 
     RewriteEngine On
 
